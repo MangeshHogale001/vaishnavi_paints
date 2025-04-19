@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vaishnavi Paints</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        body {
+            height: 100vh;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+        
+        .container {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* Navigation */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 4rem;
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #3a5199;
+        }
+        
+        .logo span {
+            color: #ff6b6b;
+        }
+        
+        .nav-items {
+            display: flex;
+            align-items: center;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            margin-right: 2rem;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            font-size: 1rem;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            color: #3a5199;
+        }
+        
+        .cart-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        
+        .cart-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: #333;
+            padding: 0.5rem;
+            transition: color 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+        
+        .cart-btn:hover {
+            color: #ff6b6b;
+        }
+        
+        .cart-items {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: #ff6b6b;
+            color: white;
+            font-size: 0.7rem;
+            font-weight: bold;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-image {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background-image: url('/api/placeholder/1920/1080');
+            background-size: cover;
+            background-position: center;
+            filter: brightness(0.85);
+            z-index: 1;
+        }
+        
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.5));
+            z-index: 2;
+        }
+        
+        .content {
+            position: relative;
+            z-index: 3;
+            text-align: center;
+            color: white;
+            padding: 2rem;
+        }
+        
+        .content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .content p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto 2.5rem;
+            line-height: 1.6;
+        }
+        
+        .shop-now {
+            display: inline-block;
+            background-color: #ff6b6b;
+            color: white;
+            padding: 1rem 2.5rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 50px;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+        }
+        
+        .shop-now:hover {
+            transform: translateY(-3px);
+            background-color: #ff5252;
+        }
+        
+        /* Cart Dropdown */
+        .cart-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            width: 300px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            padding: 1rem;
+            z-index: 100;
+            display: none;
+        }
+        
+        .cart-container:hover .cart-dropdown {
+            display: block;
+        }
+        
+        .cart-dropdown h3 {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            color: #333;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 0.5rem;
+        }
+        
+        .empty-cart {
+            text-align: center;
+            color: #777;
+            padding: 1rem 0;
+        }
+        
+        .cart-item {
+            display: flex;
+            align-items: center;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .cart-item-img {
+            width: 50px;
+            height: 50px;
+            background-color: #f1f1f1;
+            border-radius: 5px;
+            margin-right: 1rem;
+        }
+        
+        .cart-item-details {
+            flex: 1;
+        }
+        
+        .cart-item-name {
+            font-size: 0.9rem;
+            margin-bottom: 0.2rem;
+        }
+        
+        .cart-item-price {
+            font-size: 0.8rem;
+            color: #ff6b6b;
+            font-weight: 600;
+        }
+        
+        .cart-item-remove {
+            background: none;
+            border: none;
+            color: #999;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: color 0.3s ease;
+        }
+        
+        .cart-item-remove:hover {
+            color: #ff6b6b;
+        }
+        
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            padding: 1rem 0;
+            font-weight: 600;
+        }
+        
+        .cart-buttons {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .cart-button {
+            flex: 1;
+            padding: 0.5rem 0;
+            text-align: center;
+            border-radius: 5px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+        
+        .view-cart {
+            background-color: #f1f1f1;
+            color: #333;
+        }
+        
+        .checkout {
+            background-color: #3a5199;
+            color: white;
+        }
+        
+        .view-cart:hover {
+            background-color: #e5e5e5;
+        }
+        
+        .checkout:hover {
+            background-color: #2a4288;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav {
+                padding: 1rem 2rem;
+            }
+            
+            .nav-items {
+                width: 100%;
+                justify-content: space-between;
+            }
+            
+            nav {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .nav-links {
+                gap: 1rem;
+                margin-right: 1rem;
+                font-size: 0.9rem;
+            }
+            
+            .content h1 {
+                font-size: 2.5rem;
+            }
+            
+            .content p {
+                font-size: 1rem;
+            }
+            
+            .cart-dropdown {
+                width: 250px;
+                right: -50%;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .nav-links {
+                gap: 0.8rem;
+            }
+            
+            .nav-links a {
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Navigation -->
+        <nav>
+            <div class="logo">Vaishnavi <span>Paints</span></div>
+            <div class="nav-items">
+                <div class="nav-links">
+                    <a href="landing1.html">Home</a>
+                    <a href="shopping.html">Products</a>
+                    <a href="shopping.html">Gallery</a>
+                    <a href="about.html">About</a>
+                    <a href="about.html">Contact</a>
+                </div>
+                <div class="cart-container">
+                    <button class="cart-btn">
+                        <i class="fas fa-shopping-cart"></i>
+                    </button>
+                    <div class="cart-items">0</div>
+                    
+                    <!-- Cart Dropdown -->
+                    <div class="cart-dropdown">
+                        <h3>Your Cart</h3>
+                        <div class="empty-cart">
+                            Your cart is empty
+                        </div>
+                        <!-- Sample Cart Item (hidden initially) -->
+                        <!--
+                        <div class="cart-item">
+                            <div class="cart-item-img"></div>
+                            <div class="cart-item-details">
+                                <div class="cart-item-name">Interior Wall Paint</div>
+                                <div class="cart-item-price">₹250.00</div>
+                            </div>
+                            <button class="cart-item-remove">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                        -->
+                        <div class="cart-total">
+                            <span>Total:</span>
+                            <span>₹0.00</span>
+                        </div>
+                        <div class="cart-buttons">
+                            <a href="cart.html" class="cart-button view-cart">View Cart</a>
+                            <a href="cart.html" class="cart-button checkout">Checkout</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Hero Image -->
+            <div class="hero-image"></div>
+            
+            <!-- Overlay -->
+            <div class="overlay"></div>
+            
+            <!-- Content -->
+            <div class="content">
+                <h1>Transform Your Space</h1>
+                <p>Discover premium quality paints and supplies at Vaishnavi Paints. Bring your vision to life with our vibrant colors and expert advice.</p>
+                <a href="shopping.html" class="shop-now">Shop Now</a>
+            </div>
+        </div>
+    </div>
+    <script>
+        const chatbot = {
+  // Store configuration
+  storeInfo: {
+    name: "vaishnavi Paints",
+    hours: "Monday-Friday: 8AM-6PM, Saturday: 9AM-5PM, Sunday: Closed",
+    location: "123 shanivarpeth Street, Karad",
+    phone: "(555) 123-4567",
+    email: "help@colorcraft.com",
+    delivery: "Free delivery on orders over 1000Rs within 10 KM",
+    returns: "Unopened products can be returned within 30 days with receipt"
+  },
+  
+  // Product categories
+  products: {
+    interior: ["Matte", "Eggshell", "Satin", "Semi-Gloss", "High-Gloss"],
+    exterior: ["Flat", "Satin", "Semi-Gloss", "Weather Shield"],
+    specialty: ["Chalk Paint", "Milk Paint", "Furniture Paint", "Floor Paint"],
+    eco: ["Low-VOC", "Zero-VOC", "Natural Paints"],
+    brands: ["Asian PAints", "Opus", "Behr", "Dulux", "Farrow & Ball"]
+  },
+  
+  // Common questions and responses
+  responses: {
+    greeting: "Hello! Welcome to Vaishnavi Paints. How can I help you today?",
+    hours: "Our store hours are: Monday-Friday: 8AM-6PM, Saturday: 9AM-5PM, Sunday: Closed.",
+    location: "123 shanivarpeth Street, Karad. You can find directions on our Contact page.",
+    availability: "We carry a wide selection of interior and exterior paints, including specialty options. Is there a specific brand or type you're looking for?",
+    brands: "We carry major brands including Benjamin Moore, Sherwin-Williams, Behr, Dulux, and Farrow & Ball.",
+    colors: "We offer color matching services and have thousands of colors available. You can also browse our digital color catalog on the Colors page.",
+    delivery: "We offer free delivery on orders over $100 within 25 miles of our store. Standard delivery fee is $15.",
+    returns: "Unopened products can be returned within 30 days with your receipt. Custom-tinted paints cannot be returned.",
+    eco: "We offer several eco-friendly options including Low-VOC, Zero-VOC, and Natural Paints.",
+    services: "We provide color consultation, paint mixing, tinting, and matching services. Professional painting recommendations are also available.",
+    quantity: "The amount of paint needed depends on the surface area and type of paint. As a general rule, one gallon covers approximately 350-400 square feet.",
+    fallback: "I don't have that information right now. For specific questions, please call us at (555) 123-4567 or email help@colorcraft.com."
+  },
+  
+  // Process user input and return appropriate response
+  processInput: function(input) {
+    const normalized = input.toLowerCase();
+    
+    // Check for keywords and return appropriate responses
+    if (normalized.includes("hi") || normalized.includes("hello") || normalized.includes("hey")) {
+      return this.responses.greeting;
+    }
+    else if (normalized.includes("hour") || normalized.includes("open") || normalized.includes("close") || normalized.includes("time")) {
+      return this.responses.hours;
+    }
+    else if (normalized.includes("where") || normalized.includes("location") || normalized.includes("address") || normalized.includes("direction")) {
+      return this.responses.location;
+    }
+    else if (normalized.includes("available") || normalized.includes("stock") || normalized.includes("inventory")) {
+      return this.responses.availability;
+    }
+    else if (normalized.includes("brand") || normalized.includes("products") || normalized.includes("paint")) {
+      return this.responses.brands;
+    }
+    else if (normalized.includes("color") || normalized.includes("shade") || normalized.includes("tone")) {
+      return this.responses.colors;
+    }
+    else if (normalized.includes("deliver") || normalized.includes("shipping")) {
+      return this.responses.delivery;
+    }
+    else if (normalized.includes("return") || normalized.includes("refund")) {
+      return this.responses.returns;
+    }
+    else if (normalized.includes("eco") || normalized.includes("environment") || normalized.includes("voc")) {
+      return this.responses.eco;
+    }
+    else if (normalized.includes("service") || normalized.includes("consult") || normalized.includes("help")) {
+      return this.responses.services;
+    }
+    else if (normalized.includes("how much") || normalized.includes("quantity") || normalized.includes("gallons")) {
+      return this.responses.quantity;
+    }
+    else {
+      return this.responses.fallback;
+    }
+  },
+  
+  // Initialize the chatbot UI
+  init: function() {
+    // Create chat interface
+    const chatContainer = document.createElement('div');
+    chatContainer.id = 'chat-container';
+    chatContainer.style.cssText = 'position: fixed; bottom: 20px; right: 20px; width: 300px; z-index: 1000;';
+    
+    const chatHeader = document.createElement('div');
+    chatHeader.style.cssText = 'background-color: #4a90e2; color: white; padding: 10px; border-radius: 5px 5px 0 0; cursor: pointer;';
+    chatHeader.innerHTML = '<strong>' + this.storeInfo.name + ' Chat</strong>';
+    
+    const chatBody = document.createElement('div');
+    chatBody.id = 'chat-body';
+    chatBody.style.cssText = 'height: 300px; overflow-y: auto; background-color: #f9f9f9; padding: 10px; display: none; border: 1px solid #ddd;';
+    
+    const inputArea = document.createElement('div');
+    inputArea.style.cssText = 'display: none; background-color: #fff; padding: 10px; border: 1px solid #ddd; border-top: none; border-radius: 0 0 5px 5px;';
+    
+    const chatInput = document.createElement('input');
+    chatInput.type = 'text';
+    chatInput.id = 'chat-input';
+    chatInput.placeholder = 'Type your question here...';
+    chatInput.style.cssText = 'width: 80%; padding: 8px;';
+    
+    const chatButton = document.createElement('button');
+    chatButton.innerHTML = 'Send';
+    chatButton.style.cssText = 'width: 18%; padding: 8px; margin-left: 2%; background-color: #4a90e2; color: white; border: none; cursor: pointer;';
+    
+    inputArea.appendChild(chatInput);
+    inputArea.appendChild(chatButton);
+    
+    chatContainer.appendChild(chatHeader);
+    chatContainer.appendChild(chatBody);
+    chatContainer.appendChild(inputArea);
+    
+    document.body.appendChild(chatContainer);
+    
+    // Add welcome message
+    const welcomeMsg = document.createElement('div');
+    welcomeMsg.className = 'chat-message bot';
+    welcomeMsg.innerHTML = this.responses.greeting;
+    welcomeMsg.style.cssText = 'background-color: #e6f2ff; padding: 8px; border-radius: 5px; margin-bottom: 10px;';
+    chatBody.appendChild(welcomeMsg);
+    
+    // Event listeners
+    chatHeader.addEventListener('click', function() {
+      if (chatBody.style.display === 'none') {
+        chatBody.style.display = 'block';
+        inputArea.style.display = 'block';
+      } else {
+        chatBody.style.display = 'none';
+        inputArea.style.display = 'none';
+      }
+    });
+    
+    const sendMessage = () => {
+      const userInput = chatInput.value.trim();
+      if (userInput === '') return;
+      
+      // Display user message
+      const userMsg = document.createElement('div');
+      userMsg.className = 'chat-message user';
+      userMsg.innerHTML = userInput;
+      userMsg.style.cssText = 'background-color: #dcf8c6; padding: 8px; border-radius: 5px; margin-bottom: 10px; text-align: right;';
+      chatBody.appendChild(userMsg);
+      
+      // Clear input
+      chatInput.value = '';
+      
+      // Process and display bot response
+      setTimeout(() => {
+        const botResponse = this.processInput(userInput);
+        const botMsg = document.createElement('div');
+        botMsg.className = 'chat-message bot';
+        botMsg.innerHTML = botResponse;
+        botMsg.style.cssText = 'background-color: #e6f2ff; padding: 8px; border-radius: 5px; margin-bottom: 10px;';
+        chatBody.appendChild(botMsg);
+        
+        // Auto-scroll to bottom
+        chatBody.scrollTop = chatBody.scrollHeight;
+      }, 500);
+    };
+    
+    chatButton.addEventListener('click', sendMessage);
+    
+    chatInput.addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        sendMessage();
+      }
+    });
+  }
+};
+
+// Initialize chatbot when the page loads
+window.addEventListener('DOMContentLoaded', function() {
+  chatbot.init();
+});
+    </script>
+</body>
+</html>

@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ColorCraft Paints - Shop</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        
+        header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 2rem;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: #3498db;
+        }
+        
+        .shop-hero {
+            background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('/api/placeholder/1200/400');
+            background-size: cover;
+            background-position: center;
+            height: 200px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            margin-bottom: 2rem;
+        }
+        
+        .shop-title {
+            font-size: 2.5rem;
+            text-align: center;
+        }
+        
+        .filter-section {
+            margin-bottom: 2rem;
+            padding: 1rem;
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .filter-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .filter-options select {
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .product-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .product-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .product-info {
+            padding: 1rem;
+        }
+        
+        .product-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .product-price {
+            font-size: 1.4rem;
+            color: #e74c3c;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+        
+        .product-details {
+            color: #777;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+        
+        .add-to-cart {
+            display: block;
+            width: 100%;
+            padding: 0.8rem;
+            background-color: #2c3e50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+        
+        .add-to-cart:hover {
+            background-color: #3498db;
+        }
+        
+        footer {
+            background-color: #2c3e50;
+            color: white;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+        
+        .footer-section {
+            flex: 1;
+            min-width: 200px;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-title {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer-links a {
+            color: #ddd;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: #3498db;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #34495e;
+            margin-top: 2rem;
+            color: #bbb;
+        }
+        
+        @media (max-width: 768px) {
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+            
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <div class="logo">ColorCraft Paints</div>
+            <ul class="nav-links">
+                <li><a href="landing1.html">Home</a></li>
+                <li><a href="shopping.html">Shop</a></li>
+                <li><a href="shopping.html">Color Guide</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="about.html">Contact</a></li>
+            </ul>
+        </div>
+    </header>
+    
+    <div class="shop-hero">
+        <h1 class="shop-title">Our Paint Collection</h1>
+    </div>
+    
+    <div class="container">
+        <section class="filter-section">
+            <h2>Filter Products</h2>
+            <div class="filter-options">
+                <select name="category">
+                    <option value="">All Categories</option>
+                    <option value="interior">Interior Paints</option>
+                    <option value="exterior">Exterior Paints</option>
+                    <option value="primer">Primers</option>
+                    <option value="special">Specialty Finishes</option>
+                </select>
+                
+                <select name="price">
+                    <option value="">Price Range</option>
+                    <option value="0-500">₹0 - ₹500</option>
+                    <option value="500-1000">₹500 - ₹1000</option>
+                    <option value="1000-2000">₹1000 - ₹2000</option>
+                    <option value="2000+">₹2000+</option>
+                </select>
+                
+                <select name="finish">
+                    <option value="">Paint Finish</option>
+                    <option value="matte">Matte</option>
+                    <option value="eggshell">Eggshell</option>
+                    <option value="satin">Satin</option>
+                    <option value="semi-gloss">Semi-Gloss</option>
+                    <option value="gloss">Gloss</option>
+                </select>
+            </div>
+        </section>
+        
+        <section class="products-grid">
+            <!-- Product 1 -->
+            <div class="product-card">
+                <img src="1.jpg" alt="Premium Interior Emulsion" class="product-image">
+                <div class="product-info">
+                    <h3 class="product-name">Premium Interior Emulsion</h3>
+                    <p class="product-price">₹1,899</p>
+                    <p class="product-details">10L | Matte Finish | Low VOC</p>
+                    <a href="cart.html" class="add-to-cart">Add to Cart</a>
+
+                </div>
+            </div>
+            
+            <!-- Product 2 -->
+            <div class="product-card">
+                <img src="2.jpg" alt="Weather Shield Exterior Paint" class="product-image">
+                <div class="product-info">
+                    <h3 class="product-name">Weather Shield Exterior Paint</h3>
+                    <p class="product-price">₹2,299</p>
+                    <p class="product-details">10L | Semi-Gloss | Weather Resistant</p>
+                    <a href="cart.html" class="add-to-cart">Add to Cart</a>
+
+                </div>
+            </div>
+            
+            <!-- Product 3 -->
+            <div class="product-card">
+                <img src="3.jpg" alt="Multi-Surface Primer" class="product-image">
+                <div class="product-info">
+                    <h3 class="product-name">Multi-Surface Primer</h3>
+                    <p class="product-price">₹599</p>
+                    <p class="product-details">1L | White | Quick Drying</p>
+                    <a href="cart.html" class="add-to-cart">Add to Cart</a>
+
+                </div>
+            </div>
+            
+            <!-- Product 4 -->
+            <div class="product-card">
+                <img src="4.jpg" alt="Metallic Finish Paint" class="product-image">
+                <div class="product-info">
+                    <h3 class="product-name">Metallic Finish Paint</h3>
+                    <p class="product-price">₹899</p>
+                    <p class="product-details">500ml | Gold | Special Effect</p>
+                    <a href="cart.html" class="add-to-cart">Add to Cart</a>
+                </div>
+            </div>
+            
+            <!-- Product 5 -->
+            <div class="product-card">
+                <img src="5.jpg" alt="Anti-Bacterial Interior Paint" class="product-image">
+                <div class="product-info">
+                    <h3 class="product-name">Anti-Bacterial Interior Paint</h3>
+                    <p class="product-price">₹2,499</p>
+                    <p class="product-details">10L | Eggshell | Washable</p>
+                    <a href="cart.html" class="add-to-cart">Add to Cart</a>
+                </div>
+            </div>
+            
+            <!-- Product 6 -->
+            <div class="product-card">
+                <img src="6.jpg" alt="Designer Wall Texture" class="product-image">
+                <div class="product-info">
+                    <h3 class="product-name">Designer Wall Texture</h3>
+                    <p class="product-price">₹1,299</p>
+                    <p class="product-details">5kg | Textured Finish | Premium</p>
+                    <a href="cart.html" class="add-to-cart">Add to Cart</a>
+
+                </div>
+            </div>
+            
+            <!-- Product 7 -->
+            <div class="product-card">
+                <img src="7.jpg" alt="Quick Dry Enamel Paint" class="product-image">
+                <div class="product-info">
+                    <h3 class="product-name">Quick Dry Enamel Paint</h3>
+                    <p class="product-price">₹399</p>
+                    <p class="product-details">1L | Gloss | Multiple Colors</p>
+                    <a href="cart.html" class="add-to-cart">Add to Cart</a>
+
+                </div>
+            </div>
+            
+            <!-- Product 8 -->
+            <div class="product-card">
+                <img src="8.jpg" alt="Eco-Friendly Wall Paint" class="product-image">
+                <div class="product-info">
+                    <h3 class="product-name">Eco-Friendly Wall Paint</h3>
+                    <p class="product-price">₹1,799</p>
+                    <p class="product-details">10L | Matte | Zero VOC</p>
+                    <a href="cart.html" class="add-to-cart">Add to Cart</a>
+
+                    
+                </div>
+            </div>
+        </section>
+    </div>
+    
+    <footer>
+        <div class="container footer-content">
+            <div class="footer-section">
+                <h3 class="footer-title">ColorCraft Paints</h3>
+                <p>Transforming spaces with vibrant colors and quality finishes since 1998.</p>
+            </div>
+            
+            <div class="footer-section">
+                <h3 class="footer-title">Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="shop.html">Shop</a></li>
+                    <li><a href="colors.html">Color Guide</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3 class="footer-title">Contact Us</h3>
+                <p>123 Paint Street, Colorville</p>
+                <p>Phone: +91 98765 43210</p>
+                <p>Email: info@colorcraft.com</p>
+            </div>
+            
+            <div class="footer-section">
+                <h3 class="footer-title">Subscribe</h3>
+                <p>Stay updated with our latest products and offers.</p>
+                <form>
+                    <input type="email" placeholder="Your Email" style="padding: 0.5rem; width: 100%; margin-bottom: 0.5rem; border: 1px solid #ddd; border-radius: 4px;">
+                    <button type="submit" style="padding: 0.5rem; background-color: #3498db; color: white; border: none; border-radius: 4px; cursor: pointer; width: 100%;">Subscribe</button>
+                </form>
+            </div>
+        </div>
+        
+        <div class="container copyright">
+            <p>&copy; 2025 ColorCraft Paints. All Rights Reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - ColorCraft Paints</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 2rem;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: #3498db;
+        }
+        
+        .about-hero {
+            background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('/api/placeholder/1200/400');
+            background-size: cover;
+            background-position: center;
+            height: 300px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+        
+        .hero-content h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .hero-content p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .about-section {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .section-title {
+            font-size: 2rem;
+            color: #2c3e50;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 50px;
+            height: 3px;
+            background-color: #3498db;
+        }
+        
+        .about-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .about-text {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .about-text p {
+            margin-bottom: 1rem;
+        }
+        
+        .about-image {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .about-image img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .timeline {
+            position: relative;
+            max-width: 1200px;
+            margin: 2rem auto;
+        }
+        
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            background-color: #3498db;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -3px;
+        }
+        
+        .timeline-container {
+            padding: 10px 40px;
+            position: relative;
+            background-color: inherit;
+            width: 50%;
+        }
+        
+        .timeline-container.left {
+            left: 0;
+        }
+        
+        .timeline-container.right {
+            left: 50%;
+        }
+        
+        .timeline-container::after {
+            content: '';
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            right: -17px;
+            background-color: white;
+            border: 4px solid #3498db;
+            top: 15px;
+            border-radius: 50%;
+            z-index: 1;
+        }
+        
+        .timeline-container.left::after {
+            right: -16px;
+        }
+        
+        .timeline-container.right::after {
+            left: -16px;
+        }
+        
+        .timeline-content {
+            padding: 20px 30px;
+            background-color: white;
+            position: relative;
+            border-radius: 6px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .timeline-content h2 {
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+        }
+        
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .team-member {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        
+        .team-member:hover {
+            transform: translateY(-5px);
+        }
+        
+        .team-member img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+        
+        .team-info {
+            padding: 1.5rem;
+        }
+        
+        .team-name {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: #2c3e50;
+        }
+        
+        .team-role {
+            color: #3498db;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        
+        .team-bio {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .value-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 2rem;
+            text-align: center;
+            transition: transform 0.3s;
+            border-top: 4px solid #3498db;
+        }
+        
+        .value-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .value-icon {
+            font-size: 2.5rem;
+            color: #3498db;
+            margin-bottom: 1rem;
+        }
+        
+        .value-title {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: #2c3e50;
+        }
+        
+        .cta-section {
+            text-align: center;
+            padding: 3rem 0;
+            background-color: #3498db;
+            color: white;
+            margin: 3rem 0;
+            border-radius: 8px;
+        }
+        
+        .cta-title {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            background-color: white;
+            color: #3498db;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: 600;
+            margin-top: 1rem;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        
+        .cta-button:hover {
+            background-color: #f8f8f8;
+            transform: scale(1.05);
+        }
+        
+        footer {
+            background-color: #2c3e50;
+            color: white;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+        
+        .footer-section {
+            flex: 1;
+            min-width: 200px;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-title {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer-links a {
+            color: #ddd;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: #3498db;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #34495e;
+            margin-top: 2rem;
+            color: #bbb;
+        }
+        
+        @media (max-width: 768px) {
+            .timeline::after {
+                left: 31px;
+            }
+            
+            .timeline-container {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+            
+            .timeline-container.left {
+                left: 0;
+            }
+            
+            .timeline-container.right {
+                left: 0;
+            }
+            
+            .timeline-container.left::after, .timeline-container.right::after {
+                left: 15px;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <div class="logo">ColorCraft Paints</div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="shop.html">Shop</a></li>
+                <li><a href="colors.html">Color Guide</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </div>
+    </header>
+    
+    <div class="about-hero">
+        <div class="hero-content">
+            <h1>About ColorCraft Paints</h1>
+            <p>Bringing colors to life since 1998 with premium quality paints and exceptional service.</p>
+        </div>
+    </div>
+    
+    <div class="container">
+        <section class="about-section">
+            <h2 class="section-title">Our Story</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>Founded in 1998 by Mr. Rajiv Sharma, ColorCraft Paints began as a small retail shop in Mumbai with a vision to provide high-quality paints that would transform spaces and lives. What started as a modest venture has now grown into one of India's most trusted paint brands.</p>
+                    
+                    <p>Our journey has been colored with challenges and triumphs, but our commitment to quality has never wavered. We've expanded from a single store to over 200 outlets across India, serving millions of customers who trust us to bring their visions to life.</p>
+                    
+                    <p>At ColorCraft, we believe that colors have the power to influence emotions, enhance productivity, and create environments that nurture well-being. This philosophy drives our innovation and fuels our passion for creating products that exceed expectations.</p>
+                    
+                    <p>Today, we offer a comprehensive range of interior and exterior paints, primers, and specialty finishes that cater to diverse needs and preferences. Our eco-friendly formulations reflect our commitment to sustainability and responsible business practices.</p>
+                </div>
+                
+                <div class="about-image">
+                    <img src="/api/placeholder/600/400" alt="ColorCraft Paints Store">
+                </div>
+            </div>
+            
+            <div class="timeline">
+                <div class="timeline-container left">
+                    <div class="timeline-content">
+                        <h2>1998</h2>
+                        <p>Founded as a small retail shop in Mumbai by Mr. Rajiv Sharma.</p>
+                    </div>
+                </div>
+                <div class="timeline-container right">
+                    <div class="timeline-content">
+                        <h2>2005</h2>
+                        <p>Opened our first manufacturing facility in Pune with advanced technology.</p>
+                    </div>
+                </div>
+                <div class="timeline-container left">
+                    <div class="timeline-content">
+                        <h2>2010</h2>
+                        <p>Launched our eco-friendly paint range, becoming one of the first in India to do so.</p>
+                    </div>
+                </div>
+                <div class="timeline-container right">
+                    <div class="timeline-content">
+                        <h2>2015</h2>
+                        <p>Expanded to 100 stores across India and introduced our online shopping platform.</p>
+                    </div>
+                </div>
+                <div class="timeline-container left">
+                    <div class="timeline-content">
+                        <h2>2020</h2>
+                        <p>Received ISO certification for quality management and environmental standards.</p>
+                    </div>
+                </div>
+                <div class="timeline-container right">
+                    <div class="timeline-content">
+                        <h2>2025</h2>
+                        <p>Celebrating 27 years with over 200 stores and launching innovative smart paints.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="about-section">
+            <h2 class="section-title">Our Values</h2>
+            <p>At ColorCraft Paints, our core values guide everything we do. They shape our culture, inform our decisions, and drive our commitment to excellence.</p>
+            
+            <div class="values-grid">
+                <div class="value-card">
+                    <div class="value-icon">✨</div>
+                    <h3 class="value-title">Quality</h3>
+                    <p>We are uncompromising in our commitment to quality, using only the finest raw materials and rigorous testing processes.</p>
+                </div>
+                
+                <div class="value-card">
+                    <div class="value-icon">🌿</div>
+                    <h3 class="value-title">Sustainability</h3>
+                    <p>We prioritize eco-friendly formulations and sustainable practices to minimize our environmental footprint.</p>
+                </div>
+                
+                <div class="value-card">
+                    <div class="value-icon">💡</div>
+                    <h3 class="value-title">Innovation</h3>
+                    <p>We continuously strive to innovate and improve our products to meet evolving customer needs and market trends.</p>
+                </div>
+                
+                <div class="value-card">
+                    <div class="value-icon">🤝</div>
+                    <h3 class="value-title">Customer Focus</h3>
+                    <p>We put our customers at the center of everything we do, offering personalized solutions and exceptional service.</p>
+                </div>
+            </div>
+        </section>
+        
+        <section class="about-section">
+            <h2 class="section-title">Our Team</h2>
+            <p>Our success is built on the expertise, passion, and dedication of our team. Meet the people who bring ColorCraft's vision to life.</p>
+            
+            <div class="team-grid">
+                <div class="team-member">
+                    <img src="/api/placeholder/300/300" alt="Rajiv Sharma">
+                    <div class="team-info">
+                        <h3 class="team-name">Rajiv Sharma</h3>
+                        <p class="team-role">Founder & CEO</p>
+                        <p class="team-bio">With over 30 years of experience in the paint industry, Rajiv's vision and leadership have been instrumental in ColorCraft's growth and success.</p>
+                    </div>
+                </div>
+                
+                <div class="team-member">
+                    <img src="/api/placeholder/300/300" alt="Priya Desai">
+                    <div class="team-info">
+                        <h3 class="team-name">Priya Desai</h3>
+                        <p class="team-role">Chief Innovation Officer</p>
+                        <p class="team-bio">A color scientist with a Ph.D. in Chemical Engineering, Priya leads our R&D efforts and has pioneered many of our innovative formulations.</p>
+                    </div>
+                </div>
+                
+                <div class="team-member">
+                    <img src="/api/placeholder/300/300" alt="Vikram Mehta">
+                    <div class="team-info">
+                        <h3 class="team-name">Vikram Mehta</h3>
+                        <p class="team-role">Production Director</p>
+                        <p class="team-bio">Vikram oversees our manufacturing facilities, ensuring adherence to quality standards and operational excellence.</p>
+                    </div>
+                </div>
+                
+                <div class="team-member">
+                    <img src="/api/placeholder/300/300" alt="Ananya Patel">
+                    <div class="team-info">
+                        <h3 class="team-name">Ananya Patel</h3>
+                        <p class="team-role">Head of Customer Experience</p>
+                        <p class="team-bio">Ananya is passionate about creating delightful customer experiences and leads our service and support initiatives.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="about-section">
+            <h2 class="section-title">Manufacturing Excellence</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>Our state-of-the-art manufacturing facilities in Pune, Chennai, and Delhi NCR are equipped with cutting-edge technology and adhere to the highest quality and safety standards. Each facility is ISO 9001 and ISO 14001 certified, reflecting our commitment to quality management and environmental responsibility.</p>
+                    
+                    <p>We employ rigorous testing at every stage of production to ensure consistency, durability, and performance. Our advanced color-matching technology enables us to offer over 2,000 shades with precision and accuracy.</p>
+                    
+                    <p>Our R&D team continuously works on developing innovative formulations that are not only aesthetically pleasing but also functional, durable, and eco-friendly. We invest significantly in research to stay ahead of industry trends and environmental regulations.</p>
+                    
+                    <p>With a combined production capacity of over 100 million liters annually, we can meet the growing demand for our products while maintaining the quality standards that have made ColorCraft a trusted name in the Indian paint industry.</p>
+                </div>
+                
+                <div class="about-image">
+                    <img src="/api/placeholder/600/400" alt="ColorCraft Manufacturing Facility">
+                </div>
+            </div>
+        </section>
+        
+        <div class="cta-section">
+            <h2 class="cta-title">Ready to Transform Your Space?</h2>
+            <p>Explore our wide range of premium quality paints and experience the ColorCraft difference.</p>
+            <a href="shop.html" class="cta-button">Shop Now</a>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="container footer-content">
+            <div class="footer-section">
+                <h3 class="footer-title">ColorCraft Paints</h3>
+                <p>Transforming spaces with vibrant colors and quality finishes since 1998.</p>
+            </div>
+            
+            <div class="footer-section">
+                <h3 class="footer-title">Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="shop.html">Shop</a></li>
+                    <li><a href="colors.html">Color Guide</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3 class="footer-title">Contact Us</h3>
+                <p>123 Paint Street, Colorville</p>
+                <p>Phone: +91 98765 43210</p>
+                <p>Email: info@colorcraft.com</p>
+            </div>
+            
+            <div class="footer-section">
+                <h3 class="footer-title">Subscribe</h3>
+                <p>Stay updated with our latest products and offers.</p>
+                <form>
+                    <input type="email" placeholder="Your Email" style="padding: 0.5rem; width: 100%; margin-bottom: 0.5rem; border: 1px solid #ddd; border-radius: 4px;">
+                    <button type="submit" style="padding: 0.5rem; background-color: #3498db; color: white; border: none; border-radius: 4px; cursor: pointer; width: 100%;">Subscribe</button>
+                </form>
+            </div>
+        </div>
+        
+        <div class="container copyright">
+            <p>&copy; 2025 ColorCraft Paints. All Rights Reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
